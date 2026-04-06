@@ -1,22 +1,45 @@
+class Node:
+    '''Represents a node in a singly linked list for stack storage.'''
+    def __init__(self, val, next_node = None):
+        self.val = val
+        self.next = next_node
+
 class Queue:
     def __init__(self):
-        self.items = []
+        self.head = None
+        self.tail = None
+        self._size = 0
 
     def is_empty(self) -> bool:
-        return len(self.items) == 0
+        return self.head is None
 
     def add(self, item):
-        self.items.append(item)
+        new_node = Node(item)
+        if self.tail is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self._size += 1
 
     def pop(self):
         if self.is_empty():
             return None
-        return self.items.pop(0)
+
+        removed_data = self.head.val
+        self.head = self.head.next
+
+        if self.head is None:
+            self.tail = None
+
+        self._size -= 1
+        return removed_data
 
     def peek(self):
         if self.is_empty():
             return None
-        return self.items[0]
+        return self.head.val
 
 class MyStack:
 

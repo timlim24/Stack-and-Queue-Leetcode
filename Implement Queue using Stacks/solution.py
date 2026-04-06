@@ -1,16 +1,40 @@
+class Node:
+    '''Represents a node in a singly linked list for stack storage.'''
+    def __init__(self, val, next_node = None):
+        self.val = val
+        self.next = next_node
+
 class Stack:
+    '''A LIFO (Last-In-First-Out) Stack implementation using a linked list.'''
     def __init__(self):
-        self.items = []
-    def push(self, x):
-        self.items.append(x)
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def push(self, item):
+        '''Adds an item to the top of the stack.'''
+        self.head = Node(item, self.head)
+        self.size += 1
+
     def pop(self):
-        return self.items.pop()
+        '''Removes and returns the item from the top of the stack.'''
+        val = self.head.val
+        self.head = self.head.next
+        self.size -= 1
+        return val
+
     def peek(self):
-        return self.items[-1]
-    def size(self):
-        return len(self.items)
+        '''Returns the top item without removing it.'''
+        val = self.head.val
+        return val
+
     def is_empty(self):
-        return len(self.items) == 0
+        '''Checks if the stack is empty.'''
+        return self.head is None
+
+    def __len__(self):
+        '''Returns the number of elements in the stack.'''
+        return self.size
 
 class MyQueue:
 
